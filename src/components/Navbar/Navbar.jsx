@@ -18,7 +18,7 @@ export default function Navbar() {
       <div className="navbar__container">
         <a href="/" className="navbar__logo">
           <img
-            src="/placeholder.svg"
+            src="/assets/logo.png"
             alt="ProVital"
             className="navbar__logo-image"
           />
