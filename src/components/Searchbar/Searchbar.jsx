@@ -7,7 +7,7 @@ export default function SearchBar() {
       <div className="search-wrapper">
         <div className="search-field">
           <div className="search-icon">
-            <img src="/assets/search-icon.png" alt="Search Icon" />
+            <img src="/assets/search.png" alt="Search Icon" />
           </div>
           <input
             type="text"
@@ -18,7 +18,7 @@ export default function SearchBar() {
 
         <div className="search-field">
           <div className="search-icon">
-            <img src="/assets/location-icon.png" alt="Location Icon" />
+            <img src="/assets/location.png" alt="Location Icon" />
           </div>
           <input
             type="text"
@@ -29,7 +29,7 @@ export default function SearchBar() {
 
         <div className="search-field">
           <div className="search-icon">
-            <img src="/assets/insurance-icon.png" alt="Insurance Icon" />
+            <img src="/assets/insurance.png" alt="Insurance Icon" />
           </div>
           <input
             type="text"
