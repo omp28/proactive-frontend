@@ -20,6 +20,7 @@
         .tabs {
             display: flex;
             overflow-x: auto;
+            justify-content: center;
 
             .tab {
                 padding: 10px 20px;
@@ -28,6 +29,7 @@
                 border: 1px solid transparent;
                 border-radius: 4px;
                 cursor: pointer;
+                white-space: nowrap;
 
                 &.active {
                     border-color: #007bff;
@@ -56,15 +58,22 @@
 
     .carousel-container {
         position: relative;
+        overflow: hidden;
 
         .carousel {
             display: flex;
-            overflow-x: hidden;
+            overflow-x: scroll;
             scroll-snap-type: x mandatory;
-            gap: 10px;
+            gap: 15px;
+            padding: 10px;
+            scrollbar-width: none;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
 
             .card {
-                flex: 0 0 calc(100% / 2.3); 
+                flex: 0 0 calc(100% / 2.3);
                 border-radius: 8px;
                 overflow: hidden;
                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -82,7 +91,6 @@
                     .card-image {
                         width: 100%;
                         height: auto;
-                        display: block;
                     }
 
                     .card-metric {
@@ -109,7 +117,6 @@
 
                 .card-content {
                     padding: 15px;
-                    text-align: left;
 
                     .card-title {
                         font-size: 18px;

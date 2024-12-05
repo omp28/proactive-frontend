@@ -68,6 +68,18 @@ const Lifestyle = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const carouselRef = useRef(null);
 
+  const scrollToCard = (index) => {
+    if (carouselRef.current) {
+      const cardWidth =
+        carouselRef.current.offsetWidth / (window.innerWidth < 768 ? 1.2 : 2.3);
+      const scrollLeft = index * cardWidth;
+      carouselRef.current.scrollTo({
+        left: scrollLeft,
+        behavior: "smooth",
+      });
+    }
+  };
+
   const handleNext = () => {
     const nextIndex = (activeIndex + 1) % pillars.length;
     setActiveIndex(nextIndex);
@@ -78,17 +90,6 @@ const Lifestyle = () => {
     const prevIndex = (activeIndex - 1 + pillars.length) % pillars.length;
     setActiveIndex(prevIndex);
     scrollToCard(prevIndex);
-  };
-
-  const scrollToCard = (index) => {
-    if (carouselRef.current) {
-      const cardWidth = carouselRef.current.offsetWidth / 2.3;
-      const scrollLeft = index * cardWidth;
-      carouselRef.current.scrollTo({
-        left: scrollLeft,
-        behavior: "smooth",
-      });
-    }
   };
 
   return (
