@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./Lifestyle.scss";
 
 const pillars = [
@@ -66,12 +66,28 @@ const pillars = [
 
 const Lifestyle = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const carouselRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
+  const carouselRef = useRef();
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const scrollToCard = (index) => {
     if (carouselRef.current) {
       const cardWidth =
-        carouselRef.current.offsetWidth / (window.innerWidth < 768 ? 1.2 : 2.3);
+        carouselRef.current.offsetWidth / (isMobile ? 1.2 : 2.3);
       const scrollLeft = index * cardWidth;
       carouselRef.current.scrollTo({
         left: scrollLeft,
@@ -92,35 +108,69 @@ const Lifestyle = () => {
     scrollToCard(prevIndex);
   };
 
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) {
+      handleNext();
+    }
+    if (isRightSwipe) {
+      handlePrev();
+    }
+  };
+
   return (
     <div className="lifestyle-medicine">
       <h2 className="title">Lifestyle as medicine: The six pillars</h2>
-      <div className="tabs-container">
-        <div className="tabs">
-          {pillars.map((pillar, index) => (
-            <button
-              key={pillar.id}
-              className={`tab ${index === activeIndex ? "active" : ""}`}
-              onClick={() => {
-                setActiveIndex(index);
-                scrollToCard(index);
-              }}
-            >
-              {pillar.title}
+      {!isMobile && (
+        <div className="tabs-container">
+          <div className="tabs">
+            {pillars.map((pillar, index) => (
+              <button
+                key={pillar.id}
+                className={`tab ${index === activeIndex ? "active" : ""}`}
+                onClick={() => {
+                  setActiveIndex(index);
+                  scrollToCard(index);
+                }}
+              >
+                {pillar.title}
+              </button>
+            ))}
+          </div>
+          <div className="desktop-navigation">
+            <button onClick={handlePrev} className="nav-button">
+              &lt;
             </button>
-          ))}
+            <button onClick={handleNext} className="nav-button">
+              &gt;
+            </button>
+          </div>
         </div>
-        <div className="navigation">
-          <button onClick={handlePrev} className="nav-button">
-            &lt;
-          </button>
-          <button onClick={handleNext} className="nav-button">
-            &gt;
-          </button>
-        </div>
-      </div>
+      )}
       <div className="carousel-container">
-        <div className="carousel" ref={carouselRef}>
+        <div
+          className="carousel"
+          ref={carouselRef}
+          onTouchStart={onTouchStart}
+          onTouchMove={onTouchMove}
+          onTouchEnd={onTouchEnd}
+        >
           {pillars.map((pillar, index) => (
             <div
               key={pillar.id}

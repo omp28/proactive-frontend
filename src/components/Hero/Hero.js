@@ -5,10 +5,12 @@ import SearchBar from "../Searchbar/Searchbar";
 export default function Hero() {
   const column1Ref = useRef(null);
   const column2Ref = useRef(null);
+  const mobileStripRef = useRef(null);
 
   useEffect(() => {
     const column1 = column1Ref.current;
     const column2 = column2Ref.current;
+    const mobileStrip = mobileStripRef.current;
 
     if (!column1 || !column2) return;
 
@@ -37,6 +39,15 @@ export default function Hero() {
     };
 
     animate();
+
+    if (mobileStrip) {
+      const mobileImages = mobileStrip.children;
+      const totalWidth = Array.from(mobileImages).reduce(
+        (width, img) => width + img.offsetWidth + 16,
+        0
+      );
+      mobileStrip.style.width = `${totalWidth}px`;
+    }
   }, []);
 
   return (
@@ -55,16 +66,30 @@ export default function Hero() {
         </div>
       </div>
 
-      <SearchBar />
-      <div className="content-section">
-        <h1 className="title">
-          Book an appointment with
-          <br />
-          <span>lifestyle medicine</span> experts
-        </h1>
-        <p className="subtitle">
-          Optimize your lifestyle and reverse chronic diseases.
-        </p>
+      <div className="mobile-content">
+        <div className="content-section">
+          <h1 className="title">
+            Book an appointment with <br />
+            <span>lifestyle medicine</span> experts
+          </h1>
+          <p className="subtitle">
+            Optimize your lifestyle and reverse chronic diseases.
+          </p>
+        </div>
+
+        <SearchBar />
+
+        <div className="mobile-images-strip-container">
+          <div className="mobile-images-strip" ref={mobileStripRef}>
+            <img src="/assets/tower11.png" alt="Cooking healthy food" />
+            <img src="/assets/tower12.png" alt="Person doing yoga" />
+            <img src="/assets/tower13.png" alt="Beach activity" />
+            <img src="/assets/tower14.png" alt="Healthy nutrition" />
+            <img src="/assets/tower22.png" alt="Wellness session" />
+            <img src="/assets/tower23.png" alt="Therapy session" />
+            <img src="/assets/tower24.png" alt="Meditation practice" />
+          </div>
+        </div>
       </div>
 
       <div className="decorative-strip"></div>
