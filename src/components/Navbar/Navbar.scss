@@ -177,9 +177,12 @@
     }
 
     &__close-button {
+        position: absolute;
+        top: 0;
+        right: 0;
         background: none;
         border: none;
-        padding: 0.5rem;
+        padding: 1rem 3rem;
         cursor: pointer;
     }
 
@@ -237,6 +240,7 @@
     }
 
     &__mobile-arrow {
-        color: #9ca3af;
+        color: #656971;
+        margin-right: 2rem;
     }
 }

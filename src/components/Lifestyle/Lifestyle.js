@@ -154,11 +154,11 @@ const Lifestyle = () => {
             ))}
           </div>
           <div className="desktop-navigation">
-            <button onClick={handlePrev} className="nav-button">
-              &lt;
+            <button onClick={handleNext} className="nav-button right">
+              <img src="/assets/leftArrow.png" alt="Next" />
             </button>
-            <button onClick={handleNext} className="nav-button">
-              &gt;
+            <button onClick={handlePrev} className="nav-button left">
+              <img src="/assets/leftArrow.png" alt="Previous" />
             </button>
           </div>
         </div>

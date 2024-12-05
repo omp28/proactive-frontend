@@ -94,7 +94,7 @@ export default function Navbar() {
             <div className="navbar__mobile-header">
               <a href="/" className="navbar__logo">
                 <img
-                  src="/placeholder.svg"
+                  src="/assets/logo.png"
                   alt="ProVital"
                   className="navbar__logo-image"
                 />
@@ -104,20 +104,7 @@ export default function Navbar() {
                 className="navbar__close-button"
                 onClick={toggleMobileMenu}
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <line x1="18" y1="6" x2="6" y2="18"></line>
-                  <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
+                <img src="/assets/cross.png" alt="Close" />
               </button>
             </div>
 

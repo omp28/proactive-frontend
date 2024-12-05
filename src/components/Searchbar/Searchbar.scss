@@ -119,5 +119,9 @@
     z-index: 1;
     transform: rotate(-5deg);
     transform-origin: left bottom;
+
+    @media (max-width: 768px) {
+            display: none;
+        }
 }
 
