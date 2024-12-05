@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import "./Hero.scss";
+import SearchBar from "../Searchbar/Searchbar";
 
 export default function Hero() {
   const column1Ref = useRef(null);
@@ -53,6 +54,8 @@ export default function Hero() {
           <img src="/assets/tower24.png" alt="Meditation practice" />
         </div>
       </div>
+
+      <SearchBar />
       <div className="content-section">
         <h1 className="title">
           Book an appointment with
@@ -63,6 +66,8 @@ export default function Hero() {
           Optimize your lifestyle and reverse chronic diseases.
         </p>
       </div>
+
+      <div className="decorative-strip"></div>
     </div>
   );
 }
