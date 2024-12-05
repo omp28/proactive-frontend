@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import "./Lifestyle.scss";
 
 const pillars = [
@@ -66,29 +66,64 @@ const pillars = [
 
 const Lifestyle = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const carouselRef = useRef(null);
 
   const handleNext = () => {
-    setActiveIndex((prev) => (prev + 1) % pillars.length);
+    const nextIndex = (activeIndex + 1) % pillars.length;
+    setActiveIndex(nextIndex);
+    scrollToCard(nextIndex);
   };
 
   const handlePrev = () => {
-    setActiveIndex((prev) => (prev - 1 + pillars.length) % pillars.length);
+    const prevIndex = (activeIndex - 1 + pillars.length) % pillars.length;
+    setActiveIndex(prevIndex);
+    scrollToCard(prevIndex);
+  };
+
+  const scrollToCard = (index) => {
+    if (carouselRef.current) {
+      const cardWidth = carouselRef.current.offsetWidth / 2.3;
+      const scrollLeft = index * cardWidth;
+      carouselRef.current.scrollTo({
+        left: scrollLeft,
+        behavior: "smooth",
+      });
+    }
   };
 
   return (
     <div className="lifestyle-medicine">
       <h2 className="title">Lifestyle as medicine: The six pillars</h2>
-      <div className="carousel">
-        <button onClick={handlePrev} className="nav-button">
-          &lt;
-        </button>
-        <div className="cards">
+      <div className="tabs-container">
+        <div className="tabs">
+          {pillars.map((pillar, index) => (
+            <button
+              key={pillar.id}
+              className={`tab ${index === activeIndex ? "active" : ""}`}
+              onClick={() => {
+                setActiveIndex(index);
+                scrollToCard(index);
+              }}
+            >
+              {pillar.title}
+            </button>
+          ))}
+        </div>
+        <div className="navigation">
+          <button onClick={handlePrev} className="nav-button">
+            &lt;
+          </button>
+          <button onClick={handleNext} className="nav-button">
+            &gt;
+          </button>
+        </div>
+      </div>
+      <div className="carousel-container">
+        <div className="carousel" ref={carouselRef}>
           {pillars.map((pillar, index) => (
             <div
               key={pillar.id}
-              className={`card ${index === activeIndex ? "active" : ""} ${
-                index < activeIndex ? "left" : "right"
-              }`}
+              className={`card ${index === activeIndex ? "active" : ""}`}
             >
               <div className="card-image-container">
                 <img
@@ -110,9 +145,6 @@ const Lifestyle = () => {
             </div>
           ))}
         </div>
-        <button onClick={handleNext} className="nav-button">
-          &gt;
-        </button>
       </div>
     </div>
   );
