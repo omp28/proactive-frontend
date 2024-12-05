@@ -54,14 +54,6 @@ export default function Hero() {
         </div>
       </div>
       <div className="content-section">
-        <div className="header">
-          <a href="/login" className="header-link">
-            Login
-          </a>
-          <a href="/signup" className="header-link">
-            Sign up
-          </a>
-        </div>
         <h1 className="title">
           Book an appointment with
           <br />

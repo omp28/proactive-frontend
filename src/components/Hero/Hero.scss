@@ -126,21 +126,3 @@
         background: #008f8d;
     }
 }
-
-.header {
-    position: absolute;
-    top: 1rem;
-    right: 2rem;
-    display: flex;
-    gap: 1rem;
-
-    .header-link {
-        color: #666;
-        text-decoration: none;
-        font-size: 0.9rem;
-
-        &:hover {
-            color: #00a9a7;
-        }
-    }
-}
