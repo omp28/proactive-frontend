@@ -86,13 +86,19 @@ const Lifestyle = () => {
 
   const scrollToCard = (index) => {
     if (carouselRef.current) {
-      const cardWidth =
-        carouselRef.current.offsetWidth / (isMobile ? 1.2 : 2.3);
-      const scrollLeft = index * cardWidth;
-      carouselRef.current.scrollTo({
-        left: scrollLeft,
-        behavior: "smooth",
-      });
+      const cardElements = carouselRef.current.getElementsByClassName("card");
+      if (cardElements.length > index) {
+        const cardElement = cardElements[index];
+        const containerWidth = carouselRef.current.offsetWidth;
+        const cardWidth = cardElement.offsetWidth;
+        const scrollPosition =
+          cardElement.offsetLeft - (containerWidth - cardWidth) / 2;
+
+        carouselRef.current.scrollTo({
+          left: scrollPosition,
+          behavior: "smooth",
+        });
+      }
     }
   };
 
@@ -154,11 +160,11 @@ const Lifestyle = () => {
             ))}
           </div>
           <div className="desktop-navigation">
-            <button onClick={handleNext} className="nav-button right">
-              <img src="/assets/leftArrow.png" alt="Next" />
-            </button>
-            <button onClick={handlePrev} className="nav-button left">
+            <button onClick={handlePrev} className="nav-button right">
               <img src="/assets/leftArrow.png" alt="Previous" />
+            </button>
+            <button onClick={handleNext} className="nav-button left">
+              <img src="/assets/leftArrow.png" alt="Next" />
             </button>
           </div>
         </div>
